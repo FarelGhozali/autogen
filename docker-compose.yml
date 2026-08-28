@@ -1,0 +1,17 @@
+services:
+  autogen-studio:
+    build:
+      context: ./python/packages/autogen-studio
+      dockerfile: Dockerfile
+    
+    ports:
+      - "127.0.0.1:6000:8081"
+      
+    volumes:
+      # Flag 'z' untuk SELinux, flag 'U' agar Podman otomatis menyamakan (chown) hak akses folder
+      - ./autogen_data:/home/user/app:z,U
+      
+    env_file:
+      - .env
+      
+    restart: unless-stopped
